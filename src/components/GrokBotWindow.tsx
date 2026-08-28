@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { beatFor } from "@/data/screens";
-import type { CroJob, Participant } from "@/data/types";
+import type { GtmJob, Participant } from "@/data/types";
 import type { DemoPlayback } from "@/hooks/useDemoPlayback";
 import { DEFAULT_ACCOUNT } from "@/lib/account";
 import { ArtifactCard } from "./ArtifactCard";
@@ -17,25 +17,17 @@ function initials(name: string) {
     .join("");
 }
 
-function isLight(hex?: string) {
-  if (!hex || !hex.startsWith("#") || hex.length < 7) return false;
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return (r * 299 + g * 587 + b * 114) / 1000 > 180;
-}
-
 function GrokFace() {
   return (
     <svg className="msg-face" viewBox="0 0 24 24" aria-hidden>
-      <circle cx="12" cy="12" r="12" fill="#111" />
+      <circle cx="12" cy="12" r="12" fill="var(--night)" />
       <rect
         x="5.4"
         y="8"
         width="4.1"
         height="7.4"
         rx="2.05"
-        fill="#fff"
+        fill="var(--surface)"
         transform="rotate(-18 7.45 11.7)"
       />
       <rect
@@ -44,7 +36,7 @@ function GrokFace() {
         width="4.1"
         height="7.4"
         rx="2.05"
-        fill="#fff"
+        fill="var(--surface)"
         transform="rotate(-18 16.55 11.7)"
       />
     </svg>
@@ -58,13 +50,13 @@ function BotAvatar({
   bot?: Participant;
   size?: "sm" | "md";
 }) {
-  const color = bot?.color || "#8E8E93";
+  const color = bot?.color || "var(--blue)";
   return (
     <span
       className={`gb-avatar gb-avatar-${size}`}
       style={{
         background: color,
-        color: isLight(color) ? "#111" : "#fff",
+        color: "var(--surface)",
       }}
     >
       {initials(bot?.name || "Bot")}
@@ -180,7 +172,7 @@ export function GrokBotWindow({
   job,
   playback,
 }: {
-  job: CroJob;
+  job: GtmJob;
   playback: DemoPlayback;
 }) {
   const {

@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import type { CroJob } from "@/data/types";
-import { CLIPS } from "@/data/clips";
-import { ClipFigure } from "./ClipFigure";
+import type { GtmJob } from "@/data/types";
 import { JobDemo } from "./JobDemo";
 
-export function JobMore({ job }: { job: CroJob }) {
+export function JobMore({ job }: { job: GtmJob }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -14,17 +12,10 @@ export function JobMore({ job }: { job: CroJob }) {
       className="job-more"
       onToggle={(event) => setOpen(event.currentTarget.open)}
     >
-      <summary>Watch the agent work in the background</summary>
+      <summary>Watch the chat and computer work together</summary>
       {open ? (
         <div className="job-more-body">
           <JobDemo job={job} />
-          <div
-            className={`job-clips${job.clips.length > 1 ? " count-2" : ""}`}
-          >
-            {job.clips.map((id) => (
-              <ClipFigure key={id} clip={CLIPS[id]} />
-            ))}
-          </div>
         </div>
       ) : null}
     </details>

@@ -10,14 +10,14 @@ export const PUBLIC_QUOTES = [
     name: "Naval",
     handle: "@naval",
     quote:
-      "Grok Bot is just cool. 😎 Of course an agent should be persistent. Of course it should have its own computer.",
+      "Grok Bot is just cool. 😎\nOf course an agent should be persistent.\nOf course it should have its own computer.\nAll that remains is for it to be embodied…",
     source: "https://x.com/naval/status/2090497355649008059",
   },
   {
     name: "Martin Casado",
     handle: "@martin_casado",
     quote:
-      "This is the first product I've used that really nails the virtual co-worker. I suspect we'll view this launch as a pivotal moment in getting the abstraction for AI in the workplace right. Incredible execution by the team.",
+      "This is the first product I’ve used that really nails the virtual co-worker. I suspect we’ll view this launch as a pivotal moment in getting the abstraction for AI in the workplace right. Incredible execution by the team.",
     source: "https://x.com/martin_casado/status/2087273088002216104",
   },
   {

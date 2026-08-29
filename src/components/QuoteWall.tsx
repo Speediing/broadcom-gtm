@@ -1,27 +1,24 @@
+import Image from "next/image";
 import { PUBLIC_QUOTES } from "@/data/quotes";
-
-function initials(name: string) {
-  return name
-    .split(/\s+/)
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2);
-}
 
 export function QuoteWall() {
   return (
     <section id="testimonials" className="quotes">
-      <h2>What people say about Grok Bot</h2>
+      <h2>Testimonials</h2>
       <p className="section-lede">
-        Public excerpts from people who have used the product.
+        Six reactions that capture the persistent-agent difference.
       </p>
       <div className="quote-thread">
         {PUBLIC_QUOTES.map((quote) => (
           <article key={quote.source} className="quote-row">
             <div className="quote-who">
-              <span className="quote-avatar quote-initials" aria-hidden>
-                {initials(quote.name)}
-              </span>
+              <Image
+                src={quote.avatar}
+                alt=""
+                width={36}
+                height={36}
+                className="quote-avatar"
+              />
               <div>
                 <p className="quote-name">{quote.name}</p>
                 <p className="quote-handle">{quote.handle}</p>
@@ -34,7 +31,7 @@ export function QuoteWall() {
               rel="noopener noreferrer"
               className="quote-source"
             >
-              Read source
+              Read source →
             </a>
           </article>
         ))}

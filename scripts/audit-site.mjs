@@ -92,6 +92,47 @@ if (envExample.trim() !== "SITE_PASSWORD=") {
   failures.push(".env.example must not contain a password");
 }
 
+const [homePage, heroDemo, heroJobs, stylesheet, quoteWall] =
+  await Promise.all([
+    readFile(path.join(root, "src/app/(protected)/page.tsx"), "utf8"),
+    readFile(path.join(root, "src/components/HeroDemo.tsx"), "utf8"),
+    readFile(path.join(root, "src/data/hero-jobs.ts"), "utf8"),
+    readFile(path.join(root, "src/app/globals.css"), "utf8"),
+    readFile(path.join(root, "src/components/QuoteWall.tsx"), "utf8"),
+  ]);
+
+if (!homePage.includes("<HeroDemo />")) {
+  failures.push("hero section must render HeroDemo");
+}
+if (!homePage.includes("<QuoteWall />")) {
+  failures.push("quote wall must remain on the protected page");
+}
+if ((heroJobs.match(/^\s{4}name:/gm) || []).length !== 8) {
+  failures.push("hero job registry must contain eight jobs");
+}
+
+const phoneClasses = [
+  "hero-copy",
+  "hero-phone-jobs",
+  "hero-bot-demo",
+  "hero-phone",
+  "hero-phone-notch",
+  "hero-phone-header",
+  "hero-phone-thread",
+  "hero-phone-composer",
+];
+for (const className of phoneClasses) {
+  if (!heroDemo.includes(className)) {
+    failures.push(`missing ${className} in HeroDemo`);
+  }
+  if (!stylesheet.includes(`.${className}`) && className !== "hero-copy") {
+    failures.push(`missing ${className} styles`);
+  }
+}
+if (!quoteWall.includes("PUBLIC_QUOTES")) {
+  failures.push("quote wall must use the public quote registry");
+}
+
 if (failures.length) {
   for (const failure of failures) console.error(failure);
   process.exit(1);

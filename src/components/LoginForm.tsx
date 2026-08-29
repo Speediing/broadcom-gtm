@@ -16,19 +16,27 @@ export function LoginForm() {
     event.preventDefault();
     setPending(true);
     setError(false);
-    const response = await fetch("/api/login", {
-      method: "POST",
-      headers: { "content-type": "application/json", accept: "application/json" },
-      body: JSON.stringify({ password, next }),
-    });
-    setPending(false);
-    if (!response.ok) {
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({ password, next }),
+      });
+      if (!response.ok) {
+        setError(true);
+        return;
+      }
+      const data = (await response.json()) as { next?: string };
+      router.replace(data.next || "/");
+      router.refresh();
+    } catch {
       setError(true);
-      return;
+    } finally {
+      setPending(false);
     }
-    const data = (await response.json()) as { next?: string };
-    router.replace(data.next || "/");
-    router.refresh();
   }
 
   return (
